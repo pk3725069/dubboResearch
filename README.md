@@ -30,7 +30,7 @@ JDK1.5+
           --> 
         - <!--  使用zookeeper注册中心暴露服务地址 
           --> 
-          <dubbo:registry address="zookeeper://192.168.1.166:2181" /> 
+          <dubbo:registry address="zookeeper://127.0.0.1:2181" /> 
         - <!--  用dubbo协议在20880端口暴露服务 
           --> 
           <dubbo:protocol name="dubbo" port="20880" /> 
@@ -38,6 +38,31 @@ JDK1.5+
           --> 
           <dubbo:service interface="com.unj.dubbotest.provider.DemoService" ref="demoService" /> 
           </beans>
-       1,2 
+       1,2 DemoServiceImpl.java   demoService.java
   2.costormer 服务消费者
+      consumer.xml
+      
+      <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	   ">
+	<dubbo:application name="ws-demo" />
+
+ <!--  使用zookeeper注册中心暴露服务地址 
+          --> 
+          <dubbo:registry address="zookeeper://127.0.0.1:2181" /> 
+        - <!--  用dubbo协议在20880端口暴露服务 
+          --> 
+          <dubbo:protocol name="dubbo" port="20880" /> 
+        - <!--  声明需要暴露的服务接口 
+          --> 
+
+	<dubbo:reference id="helloService" interface="com.dubbo.demo.HelloService" version="1.0.0"
+				   url="http://127.0.0.1:8080/http/com.dubbo.demo.HelloService" />
+</beans>
+
   3.zookeep注册中心
+     下载zookeep 启动注册中心
